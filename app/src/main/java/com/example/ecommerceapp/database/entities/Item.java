@@ -18,6 +18,30 @@ public class Item {
     @ColumnInfo(name="item_descr")
     private String description;
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    @ColumnInfo(name="item_price")
+    private double price;
+
+    //TODO: category enum
+    @ColumnInfo(name="item_category")
+    private String category;
+
+
     @Ignore
     public Item(){
 

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -50,8 +52,49 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         drawerLayout = findViewById(R.id.drawerlayout);
+        navigationView = findViewById(R.id.navView);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null;
+                Class fragmentClass;
+                switch (item.getItemId())
+                {
+                    case R.id.home_id:
+                        fragmentClass = ItemsFragment.class;
+                        break;
+
+                    case R.id.buy_items_id:
+                        fragmentClass = ItemsFragment.class;
+                        break;
+
+                    case R.id.buy_services_id:
+                        fragmentClass = ServicesFragment.class;
+                        break;
+                    case R.id.sell_items_id:
+                        fragmentClass = SellItemsFragment.class;
+                        break;
+                    default:
+                        fragmentClass = ItemsFragment.class;
+
+
+                }
+                try{
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                }
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.nav_frame,fragment).commit();
+                setTitle(item.getTitle());
+                item.setChecked(true);
+                drawerLayout.closeDrawers();
+                return true;
+            }
+        });
 //        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //            @Override
 //            public void onTabSelected(TabLayout.Tab tab) {
