@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home" android:id="@+id/home_id"/>
+    <item android:title="Buy Items" android:id="@+id/buy_items_id"/>
+    <item android:title="Buy Services" android:id="@+id/buy_services_id"/>
+    <item android:title="Sell Items" android:id="@+id/sell_items_id"/>
+    <item android:title="Sell Services" android:id="@+id/sell_services_id"/>
+</menu>
