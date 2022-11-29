@@ -93,6 +93,10 @@ private GridView gridView;
                         i = new Intent(getApplicationContext(), ItemsListings.class);
                         startActivity(i);
                         return true;
+                    case R.id.add_item:
+                        i = new Intent(getApplicationContext(), AddItemUI.class);
+                        startActivity(i);
+                        return true;
                     default:
                         fragmentClass = ItemsFragment.class;
 
