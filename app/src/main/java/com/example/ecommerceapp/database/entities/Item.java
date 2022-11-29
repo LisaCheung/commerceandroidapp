@@ -18,6 +18,17 @@ public class Item {
     @ColumnInfo(name="item_descr")
     private String description;
 
+    public int getItemImage() {
+        return itemImage;
+    }
+
+    public void setItemImage(int itemImage) {
+        this.itemImage = itemImage;
+    }
+
+    @ColumnInfo(name="item_img")
+    private int itemImage;
+
     public double getPrice() {
         return price;
     }

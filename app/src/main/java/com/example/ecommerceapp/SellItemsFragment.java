@@ -2,11 +2,18 @@ package com.example.ecommerceapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +52,12 @@ public class SellItemsFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    private TabLayout tabLayout;
+    private TabItem servicesTab;
+    private TabItem itemsTab;
+    private ViewPager viewPager;
+    private FragmentManager fragmentManager;
+    private PagerAdapter1 pagerAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +65,37 @@ public class SellItemsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+//        TabLayout tabLayout=getView().findViewById(R.id.tabLayout);
+//        TabItem servicesTab = getView().findViewById(R.id.servicesTab);
+//        TabItem itemsTab = getView().findViewById(R.id.itemsTab);
+//        ViewPager viewPager = getView().findViewById(R.id.viewPager);
+
+//        viewPager.setAdapter(pagerAdapter);
+//        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        tabLayout=getView().findViewById(R.id.tabLayout);
+//         servicesTab = getView().findViewById(R.id.servicesTab);
+//         itemsTab = getView().findViewById(R.id.itemsTab);
+//         viewPager = getView().findViewById(R.id.viewPager);
+//fragmentManager = getActivity().getSupportFragmentManager();
+
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_sell_items, container, false);
     }
+
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+////        tabLayout=getView().findViewById(R.id.tabLayout);
+////         servicesTab = getView().findViewById(R.id.servicesTab);
+////         itemsTab = getView().findViewById(R.id.itemsTab);
+////         viewPager = getView().findViewById(R.id.viewPager);
+////        fragmentManager = getActivity().getSupportFragmentManager();
+////        pagerAdapter = new PagerAdapter1(fragmentManager, tabLayout.getTabCount());
+//    }
 }

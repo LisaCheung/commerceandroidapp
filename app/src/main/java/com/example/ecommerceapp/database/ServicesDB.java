@@ -1,4 +1,4 @@
 package com.example.ecommerceapp.database;
 
-public class ServicesDB {
+public abstract class ServicesDB {
 }

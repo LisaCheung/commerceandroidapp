@@ -7,4 +7,6 @@
     <item android:title="Buy Services" android:id="@+id/buy_services_id"/>
     <item android:title="Sell Items" android:id="@+id/sell_items_id"/>
     <item android:title="Sell Services" android:id="@+id/sell_services_id"/>
+    <item android:title="Item Categories" android:id="@+id/item_categories_id"/>
+    <item android:title="View Items Listings" android:id="@+id/items_listings"/>
 </menu>

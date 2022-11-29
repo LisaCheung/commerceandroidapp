@@ -14,21 +14,30 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.ecommerceapp.database.entities.Item;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
     private Toolbar toolbar;
-
+private GridView gridView;
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater menuInflater = getMenuInflater();
@@ -59,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
                 Class fragmentClass;
+                Intent i;
                 switch (item.getItemId())
                 {
                     case R.id.home_id:
@@ -75,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.sell_items_id:
                         fragmentClass = SellItemsFragment.class;
                         break;
+                    case R.id.item_categories_id:
+                        i = new Intent(getApplicationContext(), ItemCategories.class);
+                      startActivity(i);
+                      return true;
+                    case R.id.items_listings:
+                        i = new Intent(getApplicationContext(), ItemsListings.class);
+                        startActivity(i);
+                        return true;
                     default:
                         fragmentClass = ItemsFragment.class;
 
@@ -95,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
 //        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //            @Override
 //            public void onTabSelected(TabLayout.Tab tab) {

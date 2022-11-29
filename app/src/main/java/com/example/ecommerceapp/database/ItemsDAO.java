@@ -9,6 +9,8 @@ import com.example.ecommerceapp.database.entities.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+
+@Dao
 public interface ItemsDAO {
         @Insert
         public long addItem(Item item);
