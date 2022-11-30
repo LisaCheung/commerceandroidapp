@@ -24,7 +24,7 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listitemView = convertView;
         if (listitemView == null){
-            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.gridview_item,parent,false);
+            listitemView = LayoutInflater.from(getContext()).inflate(R.layout.gridview_item2,parent,false);
 
         }
         Item item = getItem(position);
