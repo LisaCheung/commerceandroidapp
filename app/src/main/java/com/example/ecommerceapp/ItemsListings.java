@@ -3,6 +3,7 @@ package com.example.ecommerceapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +57,9 @@ public class ItemsListings extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), "+ " + itemListings.get(i).getName(), Toast.LENGTH_LONG).show();
 //                    }
 //                });
+                Intent i1 = new Intent(getApplicationContext(), ItemView1.class);
+                i1.putExtra("itemIndex", i);
+                startActivity(i1);
 
             }
         });
