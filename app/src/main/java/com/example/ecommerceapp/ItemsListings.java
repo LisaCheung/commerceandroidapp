@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,11 +23,21 @@ import java.util.List;
 public class ItemsListings extends AppCompatActivity {
     private GridView gridView;
     private ItemsDB itemsDatabase;
+    private MaterialButton shoppingCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_listings);
-
+        shoppingCart = findViewById(R.id.shoppingcart);
+        shoppingCart.setBackgroundColor(Color.GRAY);
+        shoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO : shopping cart fragment & checkout fragment
+                Intent i = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(i);
+            }
+        });
         itemsDatabase = Room.databaseBuilder(getApplicationContext(),
                 ItemsDB.class, "itemsDb").allowMainThreadQueries().build();
         ItemsDAO itemsDAO = itemsDatabase.itemsDAO();
@@ -39,9 +50,9 @@ public class ItemsListings extends AppCompatActivity {
         for(Item i: allItemsListings){
             itemListings.add(i);
         }
-        itemListings.add(new Item("item1", "descr1"));
-        itemListings.add(new Item("item2", "descr2"));
-        itemListings.add(new Item("item3", "descr3"));
+//        itemListings.add(new Item("item1", "descr1"));
+//        itemListings.add(new Item("item2", "descr2"));
+//        itemListings.add(new Item("item3", "descr3"));
         GridViewAdapter gridViewAdapter = new GridViewAdapter(this,itemListings);
         gridView.setAdapter(gridViewAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
