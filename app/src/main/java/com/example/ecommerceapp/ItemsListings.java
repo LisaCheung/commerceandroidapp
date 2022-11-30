@@ -16,6 +16,7 @@ import com.example.ecommerceapp.database.entities.Item;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemsListings extends AppCompatActivity {
     private GridView gridView;
@@ -28,11 +29,15 @@ public class ItemsListings extends AppCompatActivity {
         itemsDatabase = Room.databaseBuilder(getApplicationContext(),
                 ItemsDB.class, "itemsDb").allowMainThreadQueries().build();
         ItemsDAO itemsDAO = itemsDatabase.itemsDAO();
-//        ArrayList<Item> allItemsListings = itemsDAO.getAll();
+        List<Item> allItemsListings = itemsDAO.getAll();
+
         //TODO allItemsListings for gridview adapter
         //grid view item listings
         gridView = findViewById(R.id.gridview_itemlistings);
         ArrayList<Item> itemListings = new ArrayList<>();
+        for(Item i: allItemsListings){
+            itemListings.add(i);
+        }
         itemListings.add(new Item("item1", "descr1"));
         itemListings.add(new Item("item2", "descr2"));
         itemListings.add(new Item("item3", "descr3"));
