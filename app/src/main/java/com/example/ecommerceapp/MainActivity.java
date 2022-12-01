@@ -66,12 +66,15 @@ private GridView gridView;
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 Fragment fragment = null;
                 Class fragmentClass;
                 Intent i;
                 switch (item.getItemId())
                 {
+                    case R.id.my_items:
+                        i = new Intent(getApplicationContext(), MyItemsGridView.class);
+                        startActivity(i);
+                        return true;
                     case R.id.home_id:
                         fragmentClass = ItemsFragment.class;
                         break;

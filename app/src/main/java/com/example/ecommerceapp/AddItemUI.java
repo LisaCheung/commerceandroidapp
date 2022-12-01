@@ -3,6 +3,7 @@ package com.example.ecommerceapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -35,6 +36,13 @@ public class AddItemUI extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_button);
         cancelButton.setBackgroundColor(Color.BLACK);
         submitButton = findViewById(R.id.submit_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+            }
+        });
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

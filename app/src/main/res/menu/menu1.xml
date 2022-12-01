@@ -3,18 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Home" android:id="@+id/home_id"/>
-    <item android:title="Buy Items" android:id="@+id/buy_items_id"/>
+
     <item android:title="Buy Services" android:id="@+id/buy_services_id"/>
     <item android:title="Sell Items" android:id="@+id/sell_items_id"/>
     <item android:title="Sell Services" android:id="@+id/sell_services_id"/>
     <item android:title="Item Categories" android:id="@+id/item_categories_id"/>
-    <item android:title="View Items Listings" android:id="@+id/items_listings"/>
-<!--    <item android:title="Add Item" android:id="@+id/add_item"/>-->
+    <item android:title="buy items" android:id="@+id/buy_items_id"/>
+
     <item android:title="items" android:id="@+id/items">
         <menu>
-            <item android:title="view item listings"/>
-            <item android:title="my items"/>
+            <item android:title="view item listings" android:id="@+id/items_listings"/>
+            <item android:title="my items" android:id="@+id/my_items"/>
             <item android:title="add item" android:id="@+id/add_item"/>
+        </menu>
+    </item>
+    <item android:title="services" android:id="@+id/services">
+        <menu>
+            <item android:title="view service listings" android:id="@+id/services_listings"/>
+            <item android:title="my services" android:id="@+id/my_services"/>
+            <item android:title="add service" android:id="@+id/add_service"/>
         </menu>
     </item>
 </menu>

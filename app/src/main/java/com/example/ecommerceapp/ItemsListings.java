@@ -69,7 +69,8 @@ public class ItemsListings extends AppCompatActivity {
 //                    }
 //                });
                 Intent i1 = new Intent(getApplicationContext(), ItemView1.class);
-                i1.putExtra("itemIndex", i);
+                int itemIndex = itemListings.get(i).getId();
+                i1.putExtra("itemIndex", itemIndex);
                 startActivity(i1);
 
             }

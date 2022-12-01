@@ -52,8 +52,9 @@ public class ItemView1 extends AppCompatActivity {
         itemsDatabase = Room.databaseBuilder(getApplicationContext(),
                 ItemsDB.class, "itemsDb").allowMainThreadQueries().build();
         ItemsDAO itemsDAO = itemsDatabase.itemsDAO();
-        List<Item> allItemsListings = itemsDAO.getAll();
-        Item item = allItemsListings.get(itemIndex);
+//        List<Item> allItemsListings = itemsDAO.getAll();
+//        Item item = allItemsListings.get(itemIndex);
+        Item item = itemsDAO.getItemById(itemIndex);
         itemName = findViewById(R.id.itemname2);
         itemDescription = findViewById(R.id.itemdescrip2);
         itemPrice = findViewById(R.id.itemprice2);

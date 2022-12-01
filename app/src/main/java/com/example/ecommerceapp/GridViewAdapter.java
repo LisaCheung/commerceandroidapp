@@ -30,6 +30,10 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
         Item item = getItem(position);
         TextView itemName = listitemView.findViewById(R.id.gridview_item_textview);
         itemName.setText(item.getName());
+        TextView itemDescription = listitemView.findViewById(R.id.gridview_item_description);
+        TextView itemPrice = listitemView.findViewById(R.id.gridview_item_price);
+        itemDescription.setText(item.getDescription());
+        itemPrice.setText(String.valueOf(item.getPrice()));
         //img -- setImageResource
         return listitemView;
 
