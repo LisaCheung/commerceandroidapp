@@ -84,7 +84,5 @@ public class UpdateItemUI extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
     }
 }

@@ -18,16 +18,16 @@ public class Item {
     @ColumnInfo(name="item_descr")
     private String description;
 
-    public int getItemImage() {
+    public String getItemImage() {
         return itemImage;
     }
 
-    public void setItemImage(int itemImage) {
+    public void setItemImage(String itemImage) {
         this.itemImage = itemImage;
     }
 
     @ColumnInfo(name="item_img")
-    private int itemImage;
+    private String itemImage;
 
     public double getPrice() {
         return price;

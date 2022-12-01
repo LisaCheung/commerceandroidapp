@@ -48,11 +48,11 @@
         android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="8dp"
         android:text="Submit"
-        app:layout_constraintEnd_toEndOf="@+id/editTextItemDescr"
-        app:layout_constraintTop_toBottomOf="@+id/editTextItemDescr" />
+        app:layout_constraintEnd_toEndOf="@+id/spinner2"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
     <Button
         android:id="@+id/cancel_button"
@@ -81,13 +81,28 @@
         android:id="@+id/spinner2"
         android:layout_width="214dp"
         android:layout_height="35dp"
+        android:entries="@array/conditionarr"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/submit_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.335"
+        app:layout_constraintHorizontal_bias="0.324"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPrice"
-        app:layout_constraintVertical_bias="0.513"
-        android:entries="@array/conditionarr"/>
+        app:layout_constraintVertical_bias="0.513" />
+
+    <EditText
+        android:id="@+id/editTextImageURL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="image url"
+        app:layout_constraintBottom_toTopOf="@+id/submit_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2"
+        app:layout_constraintVertical_bias="0.215" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

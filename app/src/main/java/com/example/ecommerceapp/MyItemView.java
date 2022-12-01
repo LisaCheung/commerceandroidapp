@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -59,7 +60,15 @@ public class MyItemView extends AppCompatActivity {
         itemPrice.setText(String.valueOf(myItem.getPrice()));
 
         itemImage = findViewById(R.id.myitemimg2);
-
+        if(myItem.getItemImage() != null){
+            if(myItem.getItemImage() != null){
+                Log.i("ImgURL", myItem.getItemImage());
+                new InternetImage2( itemImage).execute(myItem.getItemImage());
+            }
+            else{
+                new InternetImage2( itemImage).execute("https://cdn.cutithai.com/wp-content/uploads/furniture-elegant-small-writing-desk-home_1234483.jpg");
+            }
+        }
         itemEdit = findViewById(R.id.edit_item_btn);
         itemEdit.setOnClickListener(new View.OnClickListener() {
             @Override

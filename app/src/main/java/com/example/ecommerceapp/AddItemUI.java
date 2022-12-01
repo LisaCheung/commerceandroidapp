@@ -24,6 +24,7 @@ public class AddItemUI extends AppCompatActivity {
     private EditText itemDescription;
     private ItemsDB itemsDatabase;
     private EditText itemPrice;
+    private EditText imageURL;
     //TODO same form for add & update
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class AddItemUI extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_button);
         cancelButton.setBackgroundColor(Color.BLACK);
         submitButton = findViewById(R.id.submit_button);
+        imageURL = findViewById(R.id.editTextImageURL);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,7 +55,9 @@ public class AddItemUI extends AppCompatActivity {
                 double inputPrice = Double.parseDouble(itemPrice.getText().toString());
                 String inputName = itemName.getText().toString();
                 String inputDescription = itemDescription.getText().toString();
+                String inputImage = imageURL.getText().toString();
                 Item item = new Item(inputName, inputDescription);
+                item.setItemImage(inputImage);
                 item.setPrice(inputPrice);
                 Log.i("PRICE", String.valueOf(item.getPrice()));
                 itemsDatabase = Room.databaseBuilder(getApplicationContext(), ItemsDB.class, "itemsDb").allowMainThreadQueries().build();
@@ -69,3 +73,5 @@ public class AddItemUI extends AppCompatActivity {
 
     }
 }
+//https://www.shorturl.at/shortener.php
+//adb shell input text 'https://www.nj.com/resizer/mg42jsVYwvbHKUUFQzpw6gyKmBg=/1280x0/smart/advancelocal-adapter-image-uploads.s3.amazonaws.com/image.nj.com/home/njo-media/width2048/img/somerset_impact/photo/sm0212petjpg-7a377c1c93f64d37.jpg'

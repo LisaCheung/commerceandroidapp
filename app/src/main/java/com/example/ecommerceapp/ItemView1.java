@@ -13,6 +13,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +35,21 @@ public class ItemView1 extends AppCompatActivity {
     private MaterialButton increaseCount;
     private MaterialButton decreaseCount;
     private MaterialButton backIcon;
+    private ImageView imageView;
+
+//       try {
+//        URL url = new URL("https://cdn.cutithai.com/wp-content/uploads/furniture-elegant-small-writing-desk-home_1234483.jpg");
+//        Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//    } catch(IOException e) {
+//        System.out.println(e);
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_view1);
         backIcon = findViewById(R.id.back_icon2);
         backIcon.setBackgroundColor(Color.GRAY);
+        imageView = findViewById(R.id.itemimg2);
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +65,9 @@ public class ItemView1 extends AppCompatActivity {
 //        List<Item> allItemsListings = itemsDAO.getAll();
 //        Item item = allItemsListings.get(itemIndex);
         Item item = itemsDAO.getItemById(itemIndex);
+        if(item.getItemImage() != null){
+            new InternetImage2(imageView).execute(item.getItemImage());
+        }
         itemName = findViewById(R.id.itemname2);
         itemDescription = findViewById(R.id.itemdescrip2);
         itemPrice = findViewById(R.id.itemprice2);
