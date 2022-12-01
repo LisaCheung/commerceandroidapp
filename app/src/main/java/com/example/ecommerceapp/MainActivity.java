@@ -66,6 +66,7 @@ private GridView gridView;
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 Fragment fragment = null;
                 Class fragmentClass;
                 Intent i;
@@ -114,6 +115,7 @@ private GridView gridView;
                 setTitle(item.getTitle());
                 item.setChecked(true);
                 drawerLayout.closeDrawers();
+                item.setChecked(false);
                 return true;
             }
         });
@@ -150,12 +152,13 @@ private GridView gridView;
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
+//        switch (item.getItemId()){
+//            case android.R.id.home:
+//                drawerLayout.openDrawer(GravityCompat.START);
+//                return true;
+//        }
 
+        drawerLayout.openDrawer(GravityCompat.START);
         return super.onOptionsItemSelected(item);
     }
 }
