@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateItemUI">
+
+    <TextView
+        android:id="@+id/textView5Update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginBottom="59dp"
+        android:text="Update an Item"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner2Update"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159" />
+
+    <EditText
+        android:id="@+id/editTextItemNameUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="136dp"
+        android:ems="10"
+        android:hint="name"
+        android:inputType="textPersonName"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextItemDescrUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="description"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextItemNameUpdate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextItemNameUpdate" />
+
+    <Button
+        android:id="@+id/update_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="12dp"
+        android:text="Update"
+        app:layout_constraintEnd_toEndOf="@+id/editTextItemDescrUpdate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextItemDescrUpdate" />
+
+    <Button
+        android:id="@+id/cancel_buttonUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Cancel"
+        app:layout_constraintBaseline_toBaselineOf="@+id/update_button"
+        app:layout_constraintEnd_toStartOf="@+id/update_button" />
+
+    <EditText
+        android:id="@+id/editTextPriceUpdate"
+        android:layout_width="213dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="132dp"
+        android:ems="10"
+
+        android:hint="price"
+
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextItemDescrUpdate" />
+
+    <Spinner
+        android:id="@+id/spinner2Update"
+        android:layout_width="214dp"
+        android:layout_height="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/update_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.335"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPriceUpdate"
+        app:layout_constraintVertical_bias="0.513"
+        android:entries="@array/conditionarr"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

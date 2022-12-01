@@ -65,6 +65,9 @@ public class MyItemView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //direct to editItemUI
+                Intent i = new Intent(getApplicationContext(), UpdateItemUI.class);
+                i.putExtra("itemIndex", itemIndex);
+                startActivity(i);
             }
         });
 
