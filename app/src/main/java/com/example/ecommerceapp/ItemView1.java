@@ -9,6 +9,7 @@ import androidx.room.Index;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -78,6 +79,10 @@ public class ItemView1 extends AppCompatActivity {
         increaseCount.setBackgroundColor(Color.BLUE);
         decreaseCount.setBackgroundColor(Color.RED);
         itemCount = new ViewModelProvider(this).get(ItemCount.class);
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPref", MODE_PRIVATE);
+        if(sharedPreferences.contains(String.valueOf(itemIndex))){
+            itemCount.setInitialCount(sharedPreferences.getInt(String.valueOf(itemIndex), 0));
+        }
         LiveData<Integer> itemCount2 = itemCount.getInitialCount();
         itemQuantity.setText(String.valueOf(itemCount2.getValue()));
         itemCount2.observe(this, new Observer<Integer>() {
@@ -91,12 +96,14 @@ public class ItemView1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 itemCount.increaseCount();
+                increaseCartCount(itemIndex);
             }
         });
         decreaseCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 itemCount.decreaseCount();
+
             }
         });
         if(item.getDescription() != null){
@@ -104,6 +111,24 @@ public class ItemView1 extends AppCompatActivity {
         }
         itemPrice.setText("$" + String.valueOf(item.getPrice()));
 //        Toast.makeText(getApplicationContext(), item.getName(), Toast.LENGTH_LONG).show();
+
+    }
+
+    private void increaseCartCount(int itemId){
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPref", MODE_PRIVATE);
+        int count= sharedPreferences.getInt(String.valueOf(itemId),0 );
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(String.valueOf(itemId),count + 1);
+        editor.commit();
+    }
+    private void decreaseCartCount(int itemId){
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPref", MODE_PRIVATE);
+        int count= sharedPreferences.getInt(String.valueOf(itemId),0 );
+        if(count > 0){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(String.valueOf(itemId),count - 1);
+            editor.commit();
+        }
 
     }
 }

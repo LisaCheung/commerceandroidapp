@@ -5,10 +5,20 @@ public class CartItemModel {
     private double price;
     private int quantity;
 
-    public CartItemModel(String name, double price, int quantity) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
+    public CartItemModel(int id, String name, double price, int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.id = id;
     }
 
     public String getName() {

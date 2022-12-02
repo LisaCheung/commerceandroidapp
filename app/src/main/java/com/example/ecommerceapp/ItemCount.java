@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel;
 public class ItemCount extends ViewModel {
     private int itemCount = 0;
     private MutableLiveData<Integer> itemCountLiveData = new MutableLiveData<>();
+    public void setInitialCount(int count){
+        itemCount = count;
+    }
     public MutableLiveData<Integer> getInitialCount(){
         itemCountLiveData.setValue(itemCount);
         return itemCountLiveData;
