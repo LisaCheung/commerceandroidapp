@@ -74,12 +74,12 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         holder.removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if((cartItemModel.getQuantity() - 1) > 0){
+                if((cartItemModel.getQuantity()) > 0){
                     cartItemModel.setQuantity(cartItemModel.getQuantity() - 1);
                     holder.itemQuantityTextView.setText(String.valueOf(cartItemModel.getQuantity()));
                     int count= sharedPreferences.getInt(String.valueOf(cartItemModel.getId()),0 );
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt(String.valueOf(cartItemModel.getId()),count - 1);
+                    editor.putInt(String.valueOf(cartItemModel.getId()),cartItemModel.getQuantity());
                     editor.commit();
                 }
             }

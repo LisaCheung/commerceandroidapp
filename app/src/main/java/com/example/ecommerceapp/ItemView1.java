@@ -129,6 +129,5 @@ public class ItemView1 extends AppCompatActivity {
             editor.putInt(String.valueOf(itemId),count - 1);
             editor.commit();
         }
-
     }
 }
