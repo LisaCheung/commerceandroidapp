@@ -63,6 +63,11 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), CheckoutActivity.class);
+                double totalPrice = 0;
+                for(CartItemModel c : cartItemLst){
+                    totalPrice += (sharedPreferences.getInt(String.valueOf(c.getId()), 0) * c.getPrice());
+                }
+                i.putExtra("totalPrice", totalPrice);
                 startActivity(i);
             }
         });
