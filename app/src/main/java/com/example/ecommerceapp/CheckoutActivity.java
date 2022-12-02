@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -54,19 +55,28 @@ public class CheckoutActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(CheckoutActivity.this)
-                        .setIcon(R.drawable.ic_baseline_shopping_bag_24)
-                        .setTitle("Thank you")
-                        .setMessage("Order successfully processed. Thank you for shopping with us!")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
+                if(nameEditText.getText().toString().isEmpty() ||emailEditText.getText().toString().isEmpty() ||addressEditText.getText().toString().isEmpty()  ){
+                    Toast toast = Toast.makeText(getApplicationContext(), "name, email, address fields required", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else{
+                    String customerName= nameEditText.getText().toString();
+                    String customerEmail= emailEditText.getText().toString();
+                    String customerAddress= addressEditText.getText().toString();
+
+                    new AlertDialog.Builder(CheckoutActivity.this)
+                            .setIcon(R.drawable.ic_baseline_shopping_bag_24)
+                            .setTitle("Thank you")
+                            .setMessage("Order successfully processed. Thank you for shopping with us!")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener()
                             {
-                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(i);
-                            }
-                        }).show();
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(i);
+                                }
+                            }).show();
 //                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
 //                        {
 //                            @Override
@@ -74,7 +84,7 @@ public class CheckoutActivity extends AppCompatActivity {
 //                            {
 //                            }
 //                        })
-
+                }
             }
         });
 
