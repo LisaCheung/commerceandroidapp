@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,10 +18,16 @@ import android.widget.Toast;
 
 import com.example.ecommerceapp.database.ItemsDAO;
 import com.example.ecommerceapp.database.ItemsDB;
+import com.example.ecommerceapp.database.entities.Customer;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Map;
 
 public class CheckoutActivity extends AppCompatActivity {
+    // FIREBASE_RTDB_URL=
+    public static String FIREBASE_RTDB_URL ="pasteurl";
+    private DatabaseReference databaseReference;
     private Button submitButton;
     private TextView totalPrice;
     private ItemsDB itemsDatabase;
@@ -32,6 +39,10 @@ public class CheckoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+//FIREBASE_RTDB_URL
+         databaseReference= FirebaseDatabase.getInstance(FIREBASE_RTDB_URL
+).getReference();
+
 
         //TODO
         nameEditText = findViewById(R.id.editTextTextPersonName);
@@ -63,7 +74,8 @@ public class CheckoutActivity extends AppCompatActivity {
                     String customerName= nameEditText.getText().toString();
                     String customerEmail= emailEditText.getText().toString();
                     String customerAddress= addressEditText.getText().toString();
-
+                    Customer customer = new Customer(customerName, customerEmail, customerAddress);
+                    databaseReference.child("Customers").child(customerName).setValue(customer);
                     new AlertDialog.Builder(CheckoutActivity.this)
                             .setIcon(R.drawable.ic_baseline_shopping_bag_24)
                             .setTitle("Thank you")
