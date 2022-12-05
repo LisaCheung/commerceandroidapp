@@ -61,11 +61,13 @@ private GridView gridView;
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                getSupportActionBar().setTitle(item.getTitle());
                 Fragment fragment = null;
                 Class fragmentClass;
                 Intent i;
@@ -79,20 +81,20 @@ private GridView gridView;
                         fragmentClass = ItemsFragment.class;
                         break;
 
-                    case R.id.buy_items_id:
-                        fragmentClass = ItemsFragment.class;
-                        break;
-
-                    case R.id.buy_services_id:
-                        fragmentClass = ServicesFragment.class;
-                        break;
-                    case R.id.sell_items_id:
-                        fragmentClass = SellItemsFragment.class;
-                        break;
-                    case R.id.item_categories_id:
-                        i = new Intent(getApplicationContext(), ItemCategories.class);
-                      startActivity(i);
-                      return true;
+//                    case R.id.buy_items_id:
+//                        fragmentClass = ItemsFragment.class;
+//                        break;
+//
+//                    case R.id.buy_services_id:
+//                        fragmentClass = ServicesFragment.class;
+//                        break;
+//                    case R.id.sell_items_id:
+//                        fragmentClass = SellItemsFragment.class;
+//                        break;
+//                    case R.id.item_categories_id:
+//                        i = new Intent(getApplicationContext(), ItemCategories.class);
+//                      startActivity(i);
+//                      return true;
                     case R.id.items_listings:
                         i = new Intent(getApplicationContext(), ItemsListings.class);
                         startActivity(i);

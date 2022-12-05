@@ -1,32 +1,24 @@
 package com.example.ecommerceapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ecommerceapp.database.ItemsDAO;
 import com.example.ecommerceapp.database.ItemsDB;
 import com.example.ecommerceapp.database.entities.Customer;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Map;
-
 public class CheckoutActivity extends AppCompatActivity {
-    // FIREBASE_RTDB_URL=
-    public static String FIREBASE_RTDB_URL ="pasteurl";
+    public static String FIREBASE_RTDB_URL ="";
     private DatabaseReference databaseReference;
     private Button submitButton;
     private TextView totalPrice;
