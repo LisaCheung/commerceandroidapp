@@ -23,9 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
+        android:layout_marginBottom="309dp"
         android:text="Login"
-        android:textStyle="bold"
         android:textSize="32dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/signuplink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,14 +37,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
-        android:hint="password"
         android:ems="13"
+        android:hint="password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/loginEmail"
         app:layout_constraintTop_toBottomOf="@+id/loginEmail" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="96dp"
@@ -51,4 +53,29 @@
         android:text="Login"
         app:layout_constraintStart_toStartOf="@+id/loginPassword"
         app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="4dp"
+        android:text="Don't have an account yet?"
+        app:layout_constraintBaseline_toBaselineOf="@+id/signuplink"
+        app:layout_constraintEnd_toStartOf="@+id/signuplink"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/signuplink"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="297dp"
+        android:backgroundTint="#808080"
+        android:text="Sign Up"
+        android:textSize="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 </androidx.constraintlayout.widget.ConstraintLayout>

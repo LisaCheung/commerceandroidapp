@@ -28,6 +28,7 @@ import com.example.ecommerceapp.database.entities.Item;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,11 @@ private GridView gridView;
                         return true;
                     case R.id.add_item:
                         i = new Intent(getApplicationContext(), AddItemUI.class);
+                        startActivity(i);
+                        return true;
+                    case R.id.signout:
+                        FirebaseAuth.getInstance().signOut();
+                        i = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(i);
                         return true;
                     default:

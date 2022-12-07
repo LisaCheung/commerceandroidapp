@@ -25,6 +25,7 @@ import com.example.ecommerceapp.database.ItemsDB;
 import com.example.ecommerceapp.database.entities.Item;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,11 @@ public class ItemsListings extends AppCompatActivity {
                 {
                     case R.id.my_items:
                         i = new Intent(getApplicationContext(), MyItemsGridView.class);
+                        startActivity(i);
+                        return true;
+                    case R.id.signout:
+                        FirebaseAuth.getInstance().signOut();
+                        i = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(i);
                         return true;
                     case R.id.home_id:
