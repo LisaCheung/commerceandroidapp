@@ -12,13 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ecommerceapp.database.CustomerOrdersFirestore;
 import com.example.ecommerceapp.database.ItemsDB;
 import com.example.ecommerceapp.database.entities.Customer;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CheckoutActivity extends AppCompatActivity {
-    public static String FIREBASE_RTDB_URL ="";
     private DatabaseReference databaseReference;
     private Button submitButton;
     private TextView totalPrice;
@@ -26,13 +26,14 @@ public class CheckoutActivity extends AppCompatActivity {
     private Button backButton;
     private EditText nameEditText;
     private EditText emailEditText;
+
     private EditText addressEditText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 //FIREBASE_RTDB_URL
-         databaseReference= FirebaseDatabase.getInstance(FIREBASE_RTDB_URL
+         databaseReference= FirebaseDatabase.getInstance(
 ).getReference();
 
 
@@ -63,11 +64,17 @@ public class CheckoutActivity extends AppCompatActivity {
                     toast.show();
                 }
                 else{
+
                     String customerName= nameEditText.getText().toString();
                     String customerEmail= emailEditText.getText().toString();
                     String customerAddress= addressEditText.getText().toString();
                     Customer customer = new Customer(customerName, customerEmail, customerAddress);
-                    databaseReference.child("Customers").child(customerName).setValue(customer);
+                    CustomerOrdersFirestore firestore = new CustomerOrdersFirestore();
+                    firestore.saveCustOrder(customer, totalPrice2);
+
+
+                    FirebaseDatabase.getInstance(
+                    ).getReference().child("Customers").child(customerName).setValue(customer);
                     new AlertDialog.Builder(CheckoutActivity.this)
                             .setIcon(R.drawable.ic_baseline_shopping_bag_24)
                             .setTitle("Thank you")
