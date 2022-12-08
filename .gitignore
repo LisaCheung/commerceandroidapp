@@ -15,4 +15,5 @@
 local.properties
 google-services.json
 *.apk
+commerceappium/target
 

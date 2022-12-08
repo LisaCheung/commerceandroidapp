@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.ecommerceapp.database.UsersFirestore;
+import com.example.ecommerceapp.database.entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -51,6 +53,10 @@ public class SignupActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    User newUser = new User();
+                                    newUser.setName(user.getDisplayName());
+                                    newUser.setEmail(user.getEmail());
+                                    new UsersFirestore().addUser(newUser);
                                     Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                                     startActivity(i);
                                 } else {
