@@ -8,6 +8,7 @@ import com.example.ecommerceapp.database.entities.Item;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -49,7 +50,10 @@ public class UserItems implements UserItemListingsDBInterface{
     @Override
     public void deleteUserItem(int itemId) {
         //TODO delete by id
-        firestoreDB.collection("UsersListings").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().split("[@]", 0)[0]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        Map<String, Object> hm = new HashMap<>();
+        hm.put(Integer.toString(itemId), FieldValue.delete());
+        firestoreDB.collection("UsersListings").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().split("[@]", 0)[0]).update(hm)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                     }
