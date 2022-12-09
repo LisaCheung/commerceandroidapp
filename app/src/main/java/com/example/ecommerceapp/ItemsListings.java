@@ -67,6 +67,10 @@ public class ItemsListings extends AppCompatActivity {
                         i = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(i);
                         return true;
+                    case R.id.myprofile_id:
+                        i = new Intent(getApplicationContext(), UserProfileActivity.class);
+                        startActivity(i);
+                        return true;
                     case R.id.home_id:
                         fragmentClass = ItemsFragment.class;
                         break;

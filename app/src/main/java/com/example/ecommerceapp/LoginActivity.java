@@ -15,11 +15,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ecommerceapp.database.UsersFirestore;
+import com.example.ecommerceapp.database.entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText loginEmail;
@@ -71,7 +74,20 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            String displayName= loginEmail.getText().toString().trim().split("[@]", 0)[0];
                             FirebaseUser user = mAuth.getCurrentUser();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(displayName).build();
+                            user.updateProfile(profileUpdates)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d(TAG, "User profile updated.");
+                                            }
+                                        }
+                                    });
+
                             Toast.makeText(getApplicationContext(), "login successful", Toast.LENGTH_LONG).show();
                             Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             i.putExtra("user", user);

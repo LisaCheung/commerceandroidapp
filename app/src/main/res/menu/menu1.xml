@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Home" android:id="@+id/home_id"/>
+    <item android:title="my profile" android:id="@+id/myprofile_id"/>
 
 <!--    <item android:title="Buy Services" android:id="@+id/buy_services_id"/>-->
 <!--    <item android:title="Sell Items" android:id="@+id/sell_items_id"/>-->

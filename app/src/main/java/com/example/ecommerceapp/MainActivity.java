@@ -104,6 +104,10 @@ private GridView gridView;
                         i = new Intent(getApplicationContext(), AddItemUI.class);
                         startActivity(i);
                         return true;
+                    case R.id.myprofile_id:
+                        i = new Intent(getApplicationContext(), UserProfileActivity.class);
+                        startActivity(i);
+                        return true;
                     case R.id.signout:
                         FirebaseAuth.getInstance().signOut();
                         i = new Intent(getApplicationContext(), LoginActivity.class);

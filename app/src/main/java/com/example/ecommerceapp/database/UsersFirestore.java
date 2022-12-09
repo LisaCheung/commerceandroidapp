@@ -1,7 +1,9 @@
 package com.example.ecommerceapp.database;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,17 +22,18 @@ import java.util.Map;
 
 public class UsersFirestore implements UsersDBInterface{
     FirebaseFirestore firestoreDB =FirebaseFirestore.getInstance();
-    public static User user1 = new User();
+
+    //delete
     @Override
     public User getUserByName(String userName) {
-        firestoreDB.document(userName).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firestoreDB.collection("Users").document(userName).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        user1 = (User) document.getData().get("user_info");
+                        Map<String, String> mp =(Map<String, String>) document.getData().get("user_info");
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -39,23 +42,25 @@ public class UsersFirestore implements UsersDBInterface{
                 }
             }
         });
-        return user1;
+        return null;
     }
 
     @Override
     public void addUser(User user) {
         Map<String, Object> hm = new HashMap<>();
         hm.put("user_info", user);
+        Log.i("userName", user.getName());
         firestoreDB.collection("Users").document(user.getName()).set(hm)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        Log.i("userAdd", "success");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        Log.i("userAdd", "fail");
                     }
                 });
     }
