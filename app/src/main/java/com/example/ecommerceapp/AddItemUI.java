@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.ecommerceapp.database.ItemsDAO;
 import com.example.ecommerceapp.database.ItemsDB;
+import com.example.ecommerceapp.database.UserItems;
 import com.example.ecommerceapp.database.entities.Item;
 
 public class AddItemUI extends AppCompatActivity {
@@ -62,7 +63,9 @@ public class AddItemUI extends AppCompatActivity {
                 Log.i("PRICE", String.valueOf(item.getPrice()));
                 itemsDatabase = Room.databaseBuilder(getApplicationContext(), ItemsDB.class, "itemsDb").allowMainThreadQueries().build();
                 ItemsDAO itemsDAO = itemsDatabase.itemsDAO();
-                itemsDAO.addItem(item);
+                long itemId = itemsDAO.addItem(item);
+                item.setId((int) itemId);
+                new UserItems().addUserItem(item);
                 for(Item i: itemsDAO.getAll()){
                     Log.i("ITEM", i.getName());
                 }
