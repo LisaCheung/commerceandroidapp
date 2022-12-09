@@ -68,6 +68,19 @@ public class UserItems implements UserItemListingsDBInterface{
 
     @Override
     public void updateUserItem(Item item) {
-
+        Map<String, Object> hm = new HashMap<>();
+        hm.put(Integer.toString(item.getId()), item);
+        firestoreDB.collection("UsersListings").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().split("[@]", 0)[0])
+                .update(hm)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
 }
