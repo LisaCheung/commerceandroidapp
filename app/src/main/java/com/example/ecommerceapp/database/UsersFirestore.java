@@ -50,7 +50,7 @@ public class UsersFirestore implements UsersDBInterface{
         Map<String, Object> hm = new HashMap<>();
         hm.put("user_info", user);
         Log.i("userName", user.getName());
-        firestoreDB.collection("Users").document(user.getName()).set(hm)
+        firestoreDB.collection("Users").document(user.getEmail().split("[@]", 0)[0]).set(hm)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -66,9 +66,9 @@ public class UsersFirestore implements UsersDBInterface{
     }
 
     @Override
-    public boolean deleteUserByName(String userName) {
+    public boolean deleteUserByEmailSubstring(String emailSubstring) {
         final boolean[] deleted = {false};
-        firestoreDB.collection("Users").document(userName).delete() .addOnSuccessListener(new OnSuccessListener<Void>() {
+        firestoreDB.collection("Users").document(emailSubstring).delete() .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         deleted[0] = true;
@@ -92,7 +92,7 @@ public class UsersFirestore implements UsersDBInterface{
         }
         Map<String, Object> hm = new HashMap<>();
         hm.put("user_info", user);
-        firestoreDB.collection("Users").document(user.getName()).update(hm)
+        firestoreDB.collection("Users").document(user.getEmail().split("[@]", 0)[0]).update(hm)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

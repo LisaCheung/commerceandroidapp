@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.ecommerceapp.database.UsersFirestore;
+import com.example.ecommerceapp.database.entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -27,7 +28,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.Map;
 
@@ -102,7 +102,79 @@ public class UserProfileActivity extends AppCompatActivity {
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String originalEmail = user.getEmail();
+                Log.i("origEmail", originalEmail);
+                Log.i("updatedEmail", userEmail.getText().toString().trim());
+                if(!originalEmail.equals(userEmail.getText().toString().trim())){
+                    //TODO firebaseauth update email, delete doc from firestore, re-add
+                    EditText updatePasswordET = new EditText(getApplicationContext());
+                    new AlertDialog.Builder(UserProfileActivity.this)
+                            .setIcon(R.drawable.ic_baseline_delete_24)
+                            .setTitle("Re-enter credentials to update email:")
+                            .setMessage("Enter password:")
+                            .setView(updatePasswordET)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    AuthCredential credential = EmailAuthProvider
+                                            .getCredential(user.getEmail(), updatePasswordET.getText().toString().trim());
+                                    user.reauthenticate(credential)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    FirebaseUser user5 = FirebaseAuth.getInstance().getCurrentUser();
+                                                    user5.updateEmail(userEmail.getText().toString())
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Log.d(TAG, "user email updated");
+                                                                        new UsersFirestore().deleteUserByEmailSubstring(originalEmail.split("[@]", 0)[0]);
+                                                                        User updatedUser = new User();
+                                                                        updatedUser.setEmail(userEmail.getText().toString());
+                                                                        updatedUser.setName(userName.getText().toString());
+                                                                        updatedUser.setAbout(userAbout.getText().toString());
+                                                                        new UsersFirestore().addUser(updatedUser);
+                                                                    }
+                                                                }
+                                                            });
 
+                                                }
+                                            });
+
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                }
+                            }).show();
+                }
+                else{
+                    //TODO update firestore, no email change
+                    User updatedUser = new User();
+                    updatedUser.setEmail(user.getEmail());
+                    updatedUser.setName(userName.getText().toString());
+                    updatedUser.setAbout(userAbout.getText().toString());
+                    new UsersFirestore().updateUser(updatedUser);
+                    new AlertDialog.Builder(UserProfileActivity.this)
+                            .setIcon(R.drawable.ic_baseline_person_24)
+                            .setTitle("Successfully updated")
+                            .setMessage("Changes successfully saved")
+                            .setNegativeButton("Close", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                }
+                            }).show();
+
+                }
             }
         });
 
@@ -135,7 +207,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
-                                                                    new UsersFirestore().deleteUserByName(displayName);
+                                                                    new UsersFirestore().deleteUserByEmailSubstring(user.getEmail().split("[@]", 0)[0]);
                                                                     Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                                                                     startActivity(i);
                                                                 }
@@ -153,9 +225,6 @@ public class UserProfileActivity extends AppCompatActivity {
                             {
                             }
                         }).show();
-
-
-
             }
         });
 
