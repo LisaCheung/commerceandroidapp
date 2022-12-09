@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -111,6 +112,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 //TODO: delete from firebase Auth
                 EditText deleteET = new EditText(getApplicationContext());
+                deleteET.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 new AlertDialog.Builder(UserProfileActivity.this)
                         .setIcon(R.drawable.ic_baseline_delete_24)
                         .setTitle("Confirm Deletion")
