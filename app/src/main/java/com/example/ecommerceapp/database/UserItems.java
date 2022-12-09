@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,9 +30,9 @@ public class UserItems implements UserItemListingsDBInterface{
     @Override
     public void addUserItem(Item item) {
         Map<String,Item> hm = new HashMap<>();
-        hm.put("item_info", item);
-        firestoreDB.collection("UsersListings").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().split("[@]", 0)[0]).collection(Integer.toString(item.getId())).document("item_info").set(hm)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        hm.put(Integer.toString(item.getId()), item);
+        firestoreDB.collection("UsersListings").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().split("[@]", 0)[0]).set(hm, SetOptions.merge())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.i("userListingAdd", "success");
@@ -47,7 +48,18 @@ public class UserItems implements UserItemListingsDBInterface{
 
     @Override
     public void deleteUserItem(int itemId) {
+        //TODO delete by id
+        firestoreDB.collection("UsersListings").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().split("[@]", 0)[0]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
+                    }
+                });
     }
 
     @Override
