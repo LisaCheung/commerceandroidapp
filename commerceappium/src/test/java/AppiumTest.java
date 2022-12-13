@@ -20,7 +20,7 @@ public class AppiumTest {
         androidDriver.findElement(By.id("com.example.ecommerceapp:id/loginPassword")).sendKeys("janesmith24@email.com");
         androidDriver.findElement(By.id("com.example.ecommerceapp:id/loginButton")).click();
 //        androidDriver.findElement(By.xpath("//android.widget.LinearLayout[@content-desc=\"Items\"]")).click();
-//        androidDriver.quit();
+        androidDriver.quit();
     }
 }
 /*
