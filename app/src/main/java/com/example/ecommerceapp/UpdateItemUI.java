@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.ecommerceapp.database.ItemsDAO;
 import com.example.ecommerceapp.database.ItemsDB;
+import com.example.ecommerceapp.database.UserItems;
 import com.example.ecommerceapp.database.entities.Item;
 
 public class UpdateItemUI extends AppCompatActivity {
@@ -60,6 +61,7 @@ public class UpdateItemUI extends AppCompatActivity {
                 newItem.setPrice(newPrice);
                 newItem.setId(item.getId());
                 itemsDAO.updateItem(newItem);
+                new UserItems().updateUserItem(newItem);
                 new AlertDialog.Builder(UpdateItemUI.this)
                         .setIcon(R.drawable.ic_baseline_draw_24)
                         .setTitle("Update " + newItem.getName())
