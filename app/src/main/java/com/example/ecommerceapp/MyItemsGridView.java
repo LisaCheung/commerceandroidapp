@@ -1,5 +1,7 @@
 package com.example.ecommerceapp;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,10 +24,17 @@ import android.widget.Toast;
 import com.example.ecommerceapp.database.ItemsDAO;
 import com.example.ecommerceapp.database.ItemsDB;
 import com.example.ecommerceapp.database.entities.Item;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MyItemsGridView extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -184,18 +193,74 @@ public class MyItemsGridView extends AppCompatActivity {
         for(Item i: allItemsListings){
             itemListings.add(i);
         }
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(this,itemListings);
-        gridView.setAdapter(gridViewAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //TODO display user items only
+        FirebaseFirestore.getInstance().collection("UsersListings").document(FirebaseAuth.getInstance().getCurrentUser().getEmail().split("[@]", 0)[0]).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent i1 = new Intent(getApplicationContext(), MyItemView.class);
-                int itemIndex = itemListings.get(i).getId();
-                i1.putExtra("itemIndex", itemIndex);
-                startActivity(i1);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.i("user_items_listings", document.getData().toString());
+                        Set<String> keys = document.getData().keySet();
+                        ArrayList<Item> allUserItems = new ArrayList<>();
+                        for(String k:keys){
+//                            int itemIndex = Integer.parseInt(k);
+                            Item item3 = new Item();
+                            //TODO check null
+                            Map<String, Object> mp = (Map<String, Object>) document.getData().get(k);
+                            double itemPrice = (double) mp.get("price");
+                            String itemName = (String) mp.get("name");
+                            long itemId = (long) mp.get("id");
+                            item3.setId((int)itemId);
+                            item3.setName(itemName);
+                            item3.setPrice(itemPrice);
+                            if(mp.get("description") != null){
+                                String itemDescription = (String) mp.get("description");
+                                item3.setDescription(itemDescription);
+                            }
+                            if(mp.get("category") != null){
+                                item3.setCategory((String) mp.get("category"));
+                            }
+                            if(mp.get("itemImage") != null){
+                                item3.setItemImage((String) mp.get("itemImage"));
+                            }
+                            Log.i("user_items_listings_mp", item3.toString());
+                            allUserItems.add(item3);
+                        }
+                        GridViewAdapter gridViewAdapter = new GridViewAdapter(MyItemsGridView.this,allUserItems);
+                        gridView.setAdapter(gridViewAdapter);
+                        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Intent i1 = new Intent(getApplicationContext(), MyItemView.class);
+                                int itemIndex = allUserItems.get(i).getId();
+                                i1.putExtra("itemIndex", itemIndex);
+                                startActivity(i1);
+                            }
+                        });
 
+//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                        Map<String, String> mp =(Map<String, String>) document.getData().get("user_info");
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
             }
         });
+//        GridViewAdapter gridViewAdapter = new GridViewAdapter(this,itemListings);
+//        gridView.setAdapter(gridViewAdapter);
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent i1 = new Intent(getApplicationContext(), MyItemView.class);
+//                int itemIndex = itemListings.get(i).getId();
+//                i1.putExtra("itemIndex", itemIndex);
+//                startActivity(i1);
+//
+//            }
+//        });
 
 
     }
