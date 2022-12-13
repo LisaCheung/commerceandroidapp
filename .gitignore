@@ -16,4 +16,6 @@ local.properties
 google-services.json
 *.apk
 commerceappium/target
+.idea
+commerceappium/.idea
 
