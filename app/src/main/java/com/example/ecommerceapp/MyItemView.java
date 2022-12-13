@@ -6,6 +6,7 @@ import androidx.room.Room;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.ecommerceapp.database.ItemsDAO;
 import com.example.ecommerceapp.database.ItemsDB;
+import com.example.ecommerceapp.database.UserItems;
 import com.example.ecommerceapp.database.entities.Item;
 import com.google.android.material.button.MaterialButton;
 
@@ -94,6 +96,14 @@ public class MyItemView extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which)
                             {
                                 itemsDAO.deleteItem(myItem);
+                                new UserItems().deleteUserItem(myItem.getId());
+                                SharedPreferences sharedPreferences = getSharedPreferences("sharedPref", MODE_PRIVATE);
+                                int count= sharedPreferences.getInt(String.valueOf(myItem.getId()),0 );
+                                if(count > 0){
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt(String.valueOf(myItem.getId()),0);
+                                    editor.commit();
+                                }
                                 new AlertDialog.Builder(MyItemView.this)
                                         .setIcon(R.drawable.ic_baseline_delete_24)
                                         .setTitle("Item Deleted")
